@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "detectcolision",
+  "version": "${version}",
+  "name": "DetectColision",
+  "description": "",
+  "authors": [
+    "MitosV"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/detectcolision/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.mitosv.detectcolision.client.DetectColisionClient"
+    ],
+    "main": [
+      "com.mitosv.detectcolision.DetectColision"
+    ],
+    "server": [
+      "com.mitosv.detectcolision.server.ServerInit"
+    ]
+  },
+  "mixins": [
+    "detectcolision.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}

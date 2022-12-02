@@ -1,0 +1,8 @@
+{
+  "block.detectcolision.superior_block": "Bloque Superior",
+  "block.detectcolision.inferior_block": "Bloque Inferior",
+  "block.detectcolision.base_block": "Bloque Base",
+  "block.detectcolision.tool": "Control de Escenario",
+
+  "itemGroup.detectcolision.collision": "Grupo de Colision"
+}

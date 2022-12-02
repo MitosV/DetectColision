@@ -1,0 +1,140 @@
+plugins {
+    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url = "https://maven.quiltmc.org/repository/release" }
+    maven { url = "https://hephaestus.dev/release" }
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://cursemaven.com" }
+    maven { url = "https://maven.parchmentmc.org" }
+    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://maven.tterrag.com/" }
+    maven { url = "https://storage.googleapis.com/devan-maven/" }
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://aperlambda.github.io/maven" }
+    maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
+    maven { url = "https://maven.kotlindiscord.com/repository/terraformers/" }
+    maven { url = "https://mvn.devos.one/releases/" }
+    maven { url = "https://mvn.devos.one/snapshots/" }
+    maven { url = "https://maven.terraformersmc.com/" }
+    maven { url = "https://maven.cafeteria.dev/releases/" }
+    maven { url = "https://jitpack.io/" }
+    maven { url = "https://maven.gegy.dev" }
+    maven { url = "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = "https://modmaven.dev" }
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+    maven {
+        url = "https://maven.jamieswhiteshirt.com/libs-release"
+        content {
+            includeGroup("com.jamieswhiteshirt")
+        }
+    }
+    maven {
+        name = "CottonMC"
+        url = "https://server.bbkr.space/artifactory/libs-release"
+    }
+}
+
+dependencies {
+    // To change the versions see the gradle.properties file
+    //setup(dependencies)
+
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Dependencies for Create
+    modImplementation "com.jozufozu.flywheel:flywheel-fabric-1.19.2:0.6.8-1"
+    modImplementation "io.github.fabricators_of_create.Porting-Lib:porting-lib:${project.port_lib_version}+${project.minecraft_version}"
+    modImplementation "com.tterrag.registrate_fabric:Registrate:${project.registrate_version}"
+    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${project.reach_entity_attributes_version}"
+    modImplementation "dev.cafeteria:fake-player-api:${project.fake_player_api_version}"
+    modImplementation "io.github.tropheusj:milk-lib:${project.milk_lib_version}"
+    modImplementation include("io.github.cottonmc:LibGui:6.3.0+1.19")
+
+
+    //Mejora de Rendimiento
+    devEnv(dependencies)
+    // Create
+    modImplementation fileTree("libs") {include "*.jar"}
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Uncomment the following line to enable the deprecated Fabric API modules.
+    // These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+
+    // modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+}
+
+def setup(DependencyHandler deps) {
+    deps.minecraft("com.mojang:minecraft:${project.minecraft_version}")
+    deps.mappings(loom.layered {
+        it.mappings("org.quiltmc:quilt-mappings:${project.minecraft_version}+build.${project.qm_version}:intermediary-v2")
+        it.parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
+        it.officialMojangMappings { nameSyntheticMembers = false }
+    })
+    deps.modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+def devEnv(DependencyHandler deps) {
+    deps.modLocalRuntime("maven.modrinth:lazydfu:0.1.3")
+    deps.modLocalRuntime("maven.modrinth:lithium:mc1.19.2-0.10.0")
+    // used to prevent forge config api port from complaining
+    deps.modImplementation("com.github.AlphaMode:fakeconfig:master-SNAPSHOT") { exclude(group: "net.fabricmc.fabric-api") }
+    deps.modImplementation("com.github.AlphaMode:fakeconfigtoml:master-SNAPSHOT") { exclude(group: "net.fabricmc.fabric-api") }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+    it.options.release = 17
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}

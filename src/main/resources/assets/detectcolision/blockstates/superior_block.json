@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "detectcolision:block/superior_block" },
+    "facing=east": { "model": "detectcolision:block/superior_block", "y": 90 },
+    "facing=south": { "model": "detectcolision:block/superior_block", "y": 180 },
+    "facing=west": { "model": "detectcolision:block/superior_block", "y": 270 }
+  }
+}

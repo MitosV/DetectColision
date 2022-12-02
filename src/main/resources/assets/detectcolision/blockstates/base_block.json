@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "detectcolision:block/base_block" },
+    "facing=east": { "model": "detectcolision:block/base_block", "y": 90 },
+    "facing=south": { "model": "detectcolision:block/base_block", "y": 180 },
+    "facing=west": { "model": "detectcolision:block/base_block", "y": 270 }
+  }
+}
