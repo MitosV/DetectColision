@@ -49,7 +49,6 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     //setup(dependencies)
-
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -58,20 +57,18 @@ dependencies {
     modImplementation "com.jozufozu.flywheel:flywheel-fabric-1.19.2:0.6.8-1"
     modImplementation "io.github.fabricators_of_create.Porting-Lib:porting-lib:${project.port_lib_version}+${project.minecraft_version}"
     modImplementation "com.tterrag.registrate_fabric:Registrate:${project.registrate_version}"
-    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${project.reach_entity_attributes_version}"
     modImplementation "dev.cafeteria:fake-player-api:${project.fake_player_api_version}"
     modImplementation "io.github.tropheusj:milk-lib:${project.milk_lib_version}"
     modImplementation include("io.github.cottonmc:LibGui:6.3.0+1.19")
+    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
 
 
     //Mejora de Rendimiento
     devEnv(dependencies)
     // Create
     modImplementation fileTree("libs") {include "*.jar"}
-
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 

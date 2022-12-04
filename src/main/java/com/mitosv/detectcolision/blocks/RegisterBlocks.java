@@ -23,8 +23,6 @@ import java.util.List;
 
 public class RegisterBlocks {
 
-    private static final CreateRegistrate REGISTRATE = DetectColision.registrate()
-            .creativeModeTab(()->ItemGroupMod.Collision);
 
 
     public static final Block SuperiorBlock = registerBlock("superior_block",

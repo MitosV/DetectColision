@@ -31,6 +31,10 @@ public class ServerInit implements DedicatedServerModInitializer {
 
     public static void setValues(ServerPlayerEntity player){
         PacketHandler.sendEventForce(player,force,active);
+        ConfigManager.Config config =
+                ConfigManager.getInstance().getCurrentConfig(false);
+        PacketHandler.sendReload(player,
+                config.getMaxY(),config.getMinY(),config.getMaxBlocks());
     }
 
     public static void setValues(int force1, boolean active1){

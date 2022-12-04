@@ -36,17 +36,10 @@ public class ConfigManager {
         }
     }
 
-    public Config getCurrentConfig(){
-        try {
-            gson = new GsonBuilder().setPrettyPrinting().create();
-            FileReader reader = new FileReader(this.file);
-            Config config = gson.fromJson(reader, Config.class);
-            reader.close();
-            return config;
-        }catch (Exception e){
-            DetectColision.LOGGER.error(e.getMessage());
-            return null;
-        }
+    public Config getCurrentConfig(boolean reload){
+        if (reload)
+            reloadConfig();
+        return currentConfig;
     }
 
     private void createFile(){

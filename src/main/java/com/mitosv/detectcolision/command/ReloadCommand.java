@@ -26,7 +26,8 @@ public class ReloadCommand {
     }
 
     private static int execute(CommandContext<ServerCommandSource> command){
-        ConfigManager.Config config = ConfigManager.getInstance().getCurrentConfig();
+        ConfigManager.Config config = ConfigManager
+                .getInstance().getCurrentConfig(true);
         command.getSource().sendMessage(Text.of("Max Y: "+config.getMaxY()
                         +", Min Y: "+config.getMinY()+", Max Blocks: "+config.getMaxBlocks()));
 

@@ -15,11 +15,11 @@ import net.minecraft.util.math.BlockPos;
 public class EditGUI extends LightweightGuiDescription {
 
     private final WToggleButton enable = new WToggleButton(Text.of("Knockback Activado"));
-    private final WSlider speed = new WSlider(0,8, Axis.HORIZONTAL);
+    private final WSlider speed = new WSlider(0,16, Axis.HORIZONTAL);
     private final WToggleButton inverted = new WToggleButton(Text.of("Invertido"));
     private final WToggleButton stopped = new WToggleButton(Text.of("Stop"));
     private final WLabel speedText;
-    private final WSlider force = new WSlider(0,20, Axis.HORIZONTAL);
+    private final WSlider force = new WSlider(0,10, Axis.HORIZONTAL);
     private final WLabel forceText;
 
     private MechanicalBearingTileEntity mecha;

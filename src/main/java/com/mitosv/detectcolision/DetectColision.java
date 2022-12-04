@@ -6,7 +6,6 @@ import com.mitosv.detectcolision.command.ReloadCommand;
 import com.mitosv.detectcolision.listener.OnCollision;
 import com.mitosv.detectcolision.net.PacketHandler;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ public class DetectColision implements ModInitializer {
     public static final String MOD_ID = "detectcolision";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
 
 
     @Override
@@ -40,11 +37,5 @@ public class DetectColision implements ModInitializer {
     }
 
 
-
-
-
-    public static CreateRegistrate registrate() {
-        return REGISTRATE.get();
-    }
 
 }
